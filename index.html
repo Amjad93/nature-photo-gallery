@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Open+Sans"
+    />
+    <style>
+      body {
+        font-family: "Open Sans", sans-serif;
+        margin: 5%;
+      }
+      img {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.13"></script>
+    <script src="https://unpkg.com/vue-silentbox@2.3.1/dist/vue-silentbox.min.js"></script>
+    <title>Nature: Pick your pics 🌿</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Nature: Pick your pics 🌿</h1>
+      <h2>{{ callToAction }}</h2>
+      <silent-box :gallery="gallery"></silent-box>
+    </div>
+
+    <script>
+      Vue.use(VueSilentbox.default);
+      const app = new Vue({
+        el: "#app",
+        data() {
+          return {
+            callToAction: "Email your nature photos to letsautomate.flow@gmail.com 📸",
+            gallery: [],
+          };
+        },
+        methods: {
+          async loadImages() {
+          const response = await fetch("https://script.google.com/macros/s/AKfycbwRvSxTJk57msA5kj27u2FYHFl0glb4qVTC9ejcDDmuQG2wIKmxriq9h7AUjgeI48aV/exec");
+          this.gallery = await response.json();
+          }
+        },
+        mounted() {
+          this.loadImages();
+        },
+      });
+    </script>
+  </body>
+</html>
